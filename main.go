@@ -49,7 +49,8 @@ func main() {
 	doc.Find("div.river").Find("div.post-block").Each(func(index int, item *goquery.Selection){
 		h2 := item.Find("h2")
 		title := strings.TrimSpace(h2.Text())
-		log.Println(title)
+		url, _ := h2.Find("a").Attr("href")
+		log.Println(title, url)
 	})
 
 	//log.Println(river)

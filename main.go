@@ -30,7 +30,8 @@ func main() {
 	doc, err := goquery.NewDocumentFromReader(res.Body)
 	checkError(err)
 
-	river := doc.Find("div.river").Size()
+	river, err := doc.Find("div.river").Html()
+	checkError(err)
 
 	log.Println(river)
 }

@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strings"
 )
 
 func checkError(err error) {
@@ -45,9 +46,12 @@ func main() {
 	doc, err := goquery.NewDocumentFromReader(res.Body)
 	checkError(err)
 
-	river, err := doc.Find("div.river").Html()
-	checkError(err)
+	doc.Find("div.river").Find("div.post-block").Each(func(index int, item *goquery.Selection){
+		h2 := item.Find("h2")
+		title := strings.TrimSpace(h2.Text())
+		log.Println(title)
+	})
 
 	//log.Println(river)
-	writeFile(river,"index.html")
+	//writeFile(river,"index.html")
 }
